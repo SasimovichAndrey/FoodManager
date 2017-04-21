@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8EF5A300-5F49-4712-9B68-F9608D754E6E}</ProjectGuid>
+    <ProjectGuid>{7DF9AB5E-5714-4929-B449-EDC82136E44A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FoodManager.BuisnessLogicService</RootNamespace>
-    <AssemblyName>FoodManager.BuisnessLogicService</AssemblyName>
+    <RootNamespace>FoodManager.DataModels</RootNamespace>
+    <AssemblyName>FoodManager.DataModels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -46,21 +46,8 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\FoodManager\Bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -73,40 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IFoodClassificationService.cs" />
-    <Compile Include="Interface\IFoodProductService.cs" />
-    <Compile Include="Interface\IFridgeService.cs" />
-    <Compile Include="Interface\IRecipeService.cs" />
-    <Compile Include="Interface\IShoppingListService.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\FoodProduct.cs" />
+    <Compile Include="Models\FridgeItem.cs" />
+    <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\RecipeStep.cs" />
+    <Compile Include="Models\ShoppingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Realization\FoodClassificationService.cs" />
-    <Compile Include="Realization\FoodProductService.cs" />
-    <Compile Include="Realization\FridgeService.cs" />
-    <Compile Include="Realization\RecipeService.cs" />
-    <Compile Include="Realization\ShoppingListService.cs" />
-    <Compile Include="UnityConfig.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FoodManager.DataModels\FoodManager.DataModels.csproj">
-      <Project>{7DF9AB5E-5714-4929-B449-EDC82136E44A}</Project>
-      <Name>FoodManager.DataModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.Data\FoodManager.Data.csproj">
-      <Project>{5001C56E-A642-4879-95CE-D31761BBAF92}</Project>
-      <Name>FoodManager.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.FoodClassification\FoodManager.FoodClassification.csproj">
-      <Project>{D01C17D2-756F-4277-855A-1E34EEC5EF9D}</Project>
-      <Name>FoodManager.FoodClassification</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.ServiceModels\FoodManager.ServiceModels.csproj">
-      <Project>{0BEF92F5-CE77-4EBF-A592-52D7B2A743AE}</Project>
-      <Name>FoodManager.ServiceModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.YummlyApi\FoodManager.YummlyApi.csproj">
-      <Project>{52C2AE22-7E0C-41AE-908A-A8B78E9DBEAC}</Project>
-      <Name>FoodManager.YummlyApi</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

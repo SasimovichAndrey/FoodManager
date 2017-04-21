@@ -1,5 +1,5 @@
 ﻿using FoodManager.BuisnessLogicService.Interface;
-using FoodManager.Data.Models;
+using FoodManager.DataModels.Models;
 using Microsoft.AspNet.Identity;
 using System.Web.Http;
 

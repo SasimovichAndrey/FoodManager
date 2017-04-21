@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using FoodManager.BuisnessLogicService.Interface;
-using FoodManager.Data.Models;
 using FoodManager.Data;
 using System.Linq;
 using System.Data.Entity;
 using FoodManager.YummlyApi.Interface;
 using FoodManager.ServiceModels.Yummly;
+using FoodManager.DataModels.Models;
+using System.Text;
 
 namespace FoodManager.BuisnessLogicService.Realization
 {
@@ -20,16 +21,30 @@ namespace FoodManager.BuisnessLogicService.Realization
             this._yummlyClient = yummlyClient;
         }
 
-        public IEnumerable<Recipe> GetAppRecipesByUsersFridgeItems(string userId)
+        public IEnumerable<Recipe> GetAppRecipesByUsersFridgeItems(string userId, int count)
         {
-            var dbFridgeItemsIds = _dbContext.FridgeItems.Where(fi => fi.UserId == userId).Select(fi => fi.FoodProductId).ToList();
-            var dbRecipes = _dbContext.Recipes
-                .Where(r => r.Products.All(p => dbFridgeItemsIds.Contains(p.Id)))
-                .Include(r => r.Products)
-                .Include(r => r.Steps)
+            var fridgeItems = _dbContext.FridgeItems
+                .Include(fi => fi.Product)
                 .ToList();
 
-            return dbRecipes;
+            var searchStringBuilder = new StringBuilder("");
+            foreach(var fi in fridgeItems)
+            {
+                searchStringBuilder.Append(fi.Product.Title);
+                searchStringBuilder.Append(" ");
+            }
+
+            var recipeIds = _dbContext.Recipes
+                .SqlQuery($"SELECT * FROM recipes WHERE MATCH(IngridientsSearch) AGAINST('{searchStringBuilder.ToString()}' IN NATURAL LANGUAGE MODE)")
+                .AsNoTracking()
+                .Select(r => r.Id);
+
+            var recipes = _dbContext.Recipes.Where(r => recipeIds.Contains(r.Id))
+                .Include(r => r.Steps)
+                .Include(r => r.Products)
+                .Take(count);
+
+            return recipes;
         }
 
         public YummlyGetRecipe GetYummlyRecipe(string yummlyId)
@@ -39,13 +54,13 @@ namespace FoodManager.BuisnessLogicService.Realization
             return recipe;
         }
 
-        public IEnumerable<YummlySearchRecipe> GetYummlyRecipesByUsersFridgeItems(string userId)
+        public IEnumerable<YummlySearchRecipe> GetYummlyRecipesByUsersFridgeItems(string userId, int count)
         {
             var userProductEngTitles = _dbContext.FridgeItems.Where(fi => fi.UserId == userId && fi.Product.EngTitle != null)
                 .Select(fi => fi.Product.EngTitle)
                 .ToList();
 
-            var yummlyRecipes = _yummlyClient.GetRecipes(userProductEngTitles);
+            var yummlyRecipes = _yummlyClient.GetRecipes(userProductEngTitles, count);
 
             return yummlyRecipes;
         }

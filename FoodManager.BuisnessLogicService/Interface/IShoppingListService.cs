@@ -1,4 +1,4 @@
-﻿using FoodManager.Data.Models;
+﻿using FoodManager.DataModels.Models;
 
 namespace FoodManager.BuisnessLogicService.Interface
 {

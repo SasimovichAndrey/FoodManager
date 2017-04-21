@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using FoodManager.BuisnessLogicService.Interface;
-using FoodManager.Data.Models;
 using FoodManager.Data;
 using System.Linq;
 using System.Data.Entity;
+using FoodManager.DataModels.Models;
 
 namespace FoodManager.BuisnessLogicService.Realization
 {

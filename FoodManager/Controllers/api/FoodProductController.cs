@@ -1,9 +1,4 @@
 ﻿using FoodManager.BuisnessLogicService.Interface;
-using FoodManager.Data;
-using FoodManager.Data.Models;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Web.Http;
 
 namespace FoodManager.Web.Controllers.api

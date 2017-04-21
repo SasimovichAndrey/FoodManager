@@ -1,9 +1,8 @@
-﻿using System;
-using FoodManager.BuisnessLogicService.Interface;
+﻿using FoodManager.BuisnessLogicService.Interface;
 using FoodManager.Data;
-using FoodManager.Data.Models;
 using System.Linq;
 using System.Data.Entity;
+using FoodManager.DataModels.Models;
 
 namespace FoodManager.BuisnessLogicService.Realization
 {

@@ -1,8 +1,6 @@
-﻿using FoodManager.Data.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using System;
-using System.Linq;
+using FoodManager.DataModels.Models;
 
 namespace FoodManager.Data
 {
@@ -11,11 +9,6 @@ namespace FoodManager.Data
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
 
         public DbSet<FridgeItem> FridgeItems { get; set; }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FoodManager.Data.Models;
 using FoodManager.FoodClassification.Interface;
-using FoodManager.FoodClassification.Model;
 using FoodManager.ServiceModels.FoodClassification;
 using System.Linq;
+using FoodManager.DataModels.Models;
 
 namespace FoodManager.FoodClassification.Realizations
 {

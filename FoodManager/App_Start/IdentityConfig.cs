@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using FoodManager.Web.Models;
-using FoodManager.Data.Models;
-using FoodManager.Data;
+using FoodManager.DataModels.Models;
+using System.Data.Entity;
+using System.Web.Http;
 
 namespace FoodManager.Web
 {
@@ -44,7 +40,7 @@ namespace FoodManager.Web
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>((DbContext)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(DbContext))));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

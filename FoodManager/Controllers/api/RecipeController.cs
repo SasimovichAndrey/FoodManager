@@ -19,12 +19,10 @@ namespace FoodManager.Web.Controllers.api
 
         [HttpGet]
         [Authorize]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int count)
         {
             var userId = User.Identity.GetUserId();
-            var dbRecipes = _recipeService.GetAppRecipesByUsersFridgeItems(userId);
-
-            var yummlyRecipes = _recipeService.GetYummlyRecipesByUsersFridgeItems(userId);
+            var dbRecipes = _recipeService.GetAppRecipesByUsersFridgeItems(userId, count);
 
             IEnumerable<RecipeVmBase> dbRecipeVms = dbRecipes.Select(r => new DbRecipeVm
             {
@@ -35,14 +33,22 @@ namespace FoodManager.Web.Controllers.api
                 Steps = r.Steps
             });
 
-            var yummlyRecipeVms = yummlyRecipes.Select(r => new YummlyRecipeVm
-            {
-                Title = r.recipeName,
-                YummlyId = r.id,
-                ImgUrl = r.imageUrlsBySize["90"]
-            });
+            var resultVmList = dbRecipeVms;
 
-            var resultVmList = dbRecipeVms.Concat(yummlyRecipeVms);
+            var dbRecipesCount = dbRecipes.Count();
+            if(dbRecipesCount < count)
+            {
+                var yummCount = count - dbRecipesCount;
+                var yummlyRecipes = _recipeService.GetYummlyRecipesByUsersFridgeItems(userId, yummCount);
+                var yummlyRecipeVms = yummlyRecipes.Select(r => new YummlyRecipeVm
+                {
+                    Title = r.recipeName,
+                    YummlyId = r.id,
+                    ImgUrl = r.imageUrlsBySize["90"]
+                });
+
+                resultVmList = dbRecipeVms.Concat(yummlyRecipeVms);
+            }
 
             return Ok(resultVmList);
         }

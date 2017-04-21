@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FoodManager.Data.Models
+namespace FoodManager.DataModels.Models
 {
     public class Recipe
     {
@@ -10,6 +10,8 @@ namespace FoodManager.Data.Models
         public string Explanation { get; set; }
         public string Image { get; set; }
         public bool IsCreatedByUser { get; set; }
+
+        public string IngridientsSearch { get; set; }
 
         public ICollection<FoodProduct> Products { get; set; }
         public ICollection<RecipeStep> Steps { get; set; }

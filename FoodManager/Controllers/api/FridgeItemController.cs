@@ -1,14 +1,9 @@
 ﻿using FoodManager.BuisnessLogicService.Interface;
-using FoodManager.Data;
-using FoodManager.Data.Models;
-using FoodManager.FoodClassification.Interface;
+using FoodManager.DataModels.Models;
 using FoodManager.Web.Helpers;
 using FoodManager.Web.Models;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 
 namespace FoodManager.Web.Controllers.api
@@ -16,12 +11,12 @@ namespace FoodManager.Web.Controllers.api
     public class FridgeItemController : ApiController
     {
         private readonly IFridgeService _fridgeService;
-        private readonly IFoodClassificator _foodClassificator;
+        private readonly IFoodClassificationService _foodClassificationService;
 
-        public FridgeItemController(IFridgeService fridgeService, IFoodClassificator foodClassificator)
+        public FridgeItemController(IFridgeService fridgeService, IFoodClassificationService foodClassificationService)
         {
             this._fridgeService = fridgeService;
-            this._foodClassificator = foodClassificator;
+            this._foodClassificationService = foodClassificationService;
         }
 
         [HttpGet]
@@ -31,8 +26,8 @@ namespace FoodManager.Web.Controllers.api
             string userId = User.Identity.GetUserId();
             var fridgeItems = _fridgeService.GetFridgeItemsByUserId(userId);
 
-            var storagePeriodAttributes = _foodClassificator.GetStoragePeriodAttributes(fridgeItems);
-            var storageAdviceAttributes = _foodClassificator.GetStorageAdviceAttributes(fridgeItems);
+            var storagePeriodAttributes = _foodClassificationService.GetStoragePeriodAttributes(fridgeItems);
+            var storageAdviceAttributes = _foodClassificationService.GetStorageAdviceAttributes(fridgeItems);
 
             var vms = ViewModelConvert.ConvertToFridgeVm(fridgeItems, storagePeriodAttributes, storageAdviceAttributes);
 

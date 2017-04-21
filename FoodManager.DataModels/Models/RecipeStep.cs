@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FoodManager.Data.Models
+namespace FoodManager.DataModels.Models
 {
     public class RecipeStep
     {

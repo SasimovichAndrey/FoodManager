@@ -1,6 +1,6 @@
 ﻿app.controller('RecipesCtrl', ['$http', '$scope', '$uibModal', '$document', '$window', function ($http, $scope, $uibModal, $document, $window) {
     $scope.getRecipes = function () {
-        $http.get("/api/recipe/").then(function (response) {
+        $http.get("/api/recipe/?count=12").then(function (response) {
             $scope.recipes = response.data;
         },
             function (response) { });

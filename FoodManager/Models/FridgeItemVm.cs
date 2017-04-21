@@ -1,9 +1,6 @@
-﻿using FoodManager.Data.Models;
-using FoodManager.ServiceModels.FoodClassification;
+﻿using FoodManager.DataModels.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace FoodManager.Web.Models
 {

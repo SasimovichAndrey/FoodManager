@@ -1081,21 +1081,13 @@
       <Project>{8EF5A300-5F49-4712-9B68-F9608D754E6E}</Project>
       <Name>FoodManager.BuisnessLogicService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FoodManager.Data\FoodManager.Data.csproj">
-      <Project>{5001C56E-A642-4879-95CE-D31761BBAF92}</Project>
-      <Name>FoodManager.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.FoodClassification\FoodManager.FoodClassification.csproj">
-      <Project>{D01C17D2-756F-4277-855A-1E34EEC5EF9D}</Project>
-      <Name>FoodManager.FoodClassification</Name>
+    <ProjectReference Include="..\FoodManager.DataModels\FoodManager.DataModels.csproj">
+      <Project>{7DF9AB5E-5714-4929-B449-EDC82136E44A}</Project>
+      <Name>FoodManager.DataModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\FoodManager.ServiceModels\FoodManager.ServiceModels.csproj">
       <Project>{0bef92f5-ce77-4ebf-a592-52d7b2a743ae}</Project>
       <Name>FoodManager.ServiceModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodManager.YummlyApi\FoodManager.YummlyApi.csproj">
-      <Project>{52C2AE22-7E0C-41AE-908A-A8B78E9DBEAC}</Project>
-      <Name>FoodManager.YummlyApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

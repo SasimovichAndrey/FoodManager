@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FoodManager.Data.Models
+namespace FoodManager.DataModels.Models
 {
-    public class FridgeItem
+    public class ShoppingList
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -12,13 +12,9 @@ namespace FoodManager.Data.Models
         [ForeignKey("User")]
         public string UserId { get; set; }
 
-        [ForeignKey("Product")]
-        public int FoodProductId { get; set; }
-
-        public DateTime? AddDate { get; set; }
-
-        public FoodProduct Product { get; set; }
+        public bool IsCurrent { get; set; }
 
         public ApplicationUser User { get; set; }
+        public ICollection<FoodProduct> Products { get; set; }
     }
 }

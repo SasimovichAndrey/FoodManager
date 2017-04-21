@@ -27,10 +27,10 @@ namespace YummlyApi
             return recipe;
         }
 
-        public IEnumerable<YummlySearchRecipe> GetRecipes(IEnumerable<string> ingridients)
+        public IEnumerable<YummlySearchRecipe> GetRecipes(IEnumerable<string> ingridients, int count)
         {
             var client = new HttpClient();
-            var baseUrl = @"http://api.yummly.com/v1/api/recipes?_app_id=2d3c6665&_app_key=f4d13d46197efd4f9c0bda97540e2302";
+            var baseUrl = @"http://api.yummly.com/v1/api/recipes?_app_id=2d3c6665&_app_key=f4d13d46197efd4f9c0bda97540e2302&start=0&maxResult="+count;
 
             foreach (var ingridient in ingridients)
             {

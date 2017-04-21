@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using FoodManager.Data.Models;
 using FoodManager.Web.Models;
-using FoodManager.FoodClassification.Model;
 using FoodManager.ServiceModels.FoodClassification;
+using FoodManager.DataModels.Models;
 
 namespace FoodManager.Web.Helpers
 {
