@@ -23,12 +23,45 @@
 </script>
 
 <div class="row">
-    <div ng-init="getRecipes()" id="recipesPanel" class="col-sm-12">
+    <div ng-init="getDbRecipes()" id="recipesPanel" class="col-sm-12">
         <div class="row">
-            <div ng-repeat="recipe in recipes" class="col-md-2">
+            <div class="col-sm-12 mypanel-container">
+                <span class="mypanel-title">Наши рецепты</span>
+            </div>
+            <div ng-repeat="recipe in dbRecipes" class="col-md-2">
                 <div class="recipe border-gray color-gray" ng-style="getStyleForRecipe(recipe)" ng-click="openRecipe(recipe)">
-                    <div ng-if="!recipe.IsYummly" class="recipe-info">{{recipe.Title}}</div>
-                    <div ng-if="recipe.IsYummly" class="recipe-info">
+                    <div class="recipe-info">{{recipe.Title}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-init="initYummlyRecipes()" id="recipesPanel" class="col-sm-12">
+        <div class="row">
+            <div class="col-md-12 mypanel-container">
+                <span class="mypanel-title">Рецепты в сети</span>
+                <div class="row ingridients-container">
+                    <div class="col-md-12 ingridients-header" data-toggle="collapse" data-target="#ingridients-body">
+                        <u>Ингридиенты</u>
+                    </div>
+                    <div class="col-md-12 collapse" id="ingridients-body">
+                        <div class="row">
+                            <div class="col-md-2 recipe-ingridient" ng-repeat="fridgeItem in fridgeItems">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{fridgeItem.Product.Title}}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" ng-model="fridgeItem.Product.IncludeInSearch" ng-change="searchYummlyRecipes()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="recipe in yummlyRecipes" class="col-md-2">
+                <div class="recipe border-gray color-gray" ng-style="getStyleForRecipe(recipe)" ng-click="openRecipe(recipe)">
+                    <div class="recipe-info">
                         <a>{{recipe.Title}}</a>
                     </div>
                 </div>

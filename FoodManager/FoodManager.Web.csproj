@@ -212,6 +212,7 @@
     <Compile Include="Models\DbRecipeVm.cs" />
     <Compile Include="Models\FridgeItemVm.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RecipeType.cs" />
     <Compile Include="Models\RecipeVmBase.cs" />
     <Compile Include="Models\StoragePeriodInfoVm.cs" />
     <Compile Include="Models\YummlyRecipeVm.cs" />
@@ -1050,7 +1051,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

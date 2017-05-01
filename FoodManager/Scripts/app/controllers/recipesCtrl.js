@@ -1,9 +1,42 @@
 ﻿app.controller('RecipesCtrl', ['$http', '$scope', '$uibModal', '$document', '$window', function ($http, $scope, $uibModal, $document, $window) {
-    $scope.getRecipes = function () {
-        $http.get("/api/recipe/?count=12").then(function (response) {
-            $scope.recipes = response.data;
+    $scope.getDbRecipes = function () {
+        $http.get("/api/recipe/?count=12&recipeType=0").then(function (response) {
+            $scope.dbRecipes = response.data;
         },
             function (response) { });
+    };
+
+    $scope.initYummlyRecipes = function () {
+        $http.get("/api/fridgeitem").then(function (response) {
+            $scope.fridgeItems = response.data;
+
+            if ($scope.fridgeItems.length > 0) {
+                $scope.fridgeItems[0].Product.IncludeInSearch = true;
+            }
+
+            var prodIds = [];
+            for (var i = 0; i < $scope.fridgeItems.length; i++) {
+                prodIds.push($scope.fridgeItems[i].Product.Id);
+            }
+            $scope.searchYummlyRecipes();
+
+        }, function (response) {
+        });
+    };
+
+    $scope.searchYummlyRecipes = function () {
+        var queryString = "/api/recipe/?count=12&recipeType=1";
+        for (var i = 0; i < $scope.fridgeItems.length; i++) {
+            if ($scope.fridgeItems[i].Product.IncludeInSearch) {
+                queryString += "&ingridientIds=";
+                queryString += $scope.fridgeItems[i].Product.Id;
+            }
+        }
+
+        $http.get(queryString).then(function (response) {
+            $scope.yummlyRecipes = response.data;
+        },
+        function (response) { });
     };
 
     $scope.openRecipe = function (recipe) {

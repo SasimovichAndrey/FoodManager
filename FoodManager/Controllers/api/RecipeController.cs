@@ -2,6 +2,7 @@
 using FoodManager.ServiceModels.Yummly;
 using FoodManager.Web.Models;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,38 +20,42 @@ namespace FoodManager.Web.Controllers.api
 
         [HttpGet]
         [Authorize]
-        public IHttpActionResult Get(int count)
+        public IHttpActionResult Get(int count, RecipeType recipeType, [FromUri]int[] ingridientIds)
         {
             var userId = User.Identity.GetUserId();
-            var dbRecipes = _recipeService.GetAppRecipesByUsersFridgeItems(userId, count);
 
-            IEnumerable<RecipeVmBase> dbRecipeVms = dbRecipes.Select(r => new DbRecipeVm
+            IEnumerable<RecipeVmBase> result = null;
+
+            switch (recipeType)
             {
-                Title = r.Title,
-                Id = r.Id,
-                Explanation = r.Explanation,
-                Products = r.Products,
-                Steps = r.Steps
-            });
+                case RecipeType.Db:
+                    var dbRecipes = _recipeService.GetAppRecipesByUsersFridgeItems(userId, count);
 
-            var resultVmList = dbRecipeVms;
+                    result = dbRecipes.Select(r => new DbRecipeVm
+                    {
+                        Title = r.Title,
+                        Id = r.Id,
+                        Explanation = r.Explanation,
+                        Products = r.Products,
+                        Steps = r.Steps
+                    });
+                    break;
+                case RecipeType.Yummly:
 
-            var dbRecipesCount = dbRecipes.Count();
-            if(dbRecipesCount < count)
-            {
-                var yummCount = count - dbRecipesCount;
-                var yummlyRecipes = _recipeService.GetYummlyRecipesByUsersFridgeItems(userId, yummCount);
-                var yummlyRecipeVms = yummlyRecipes.Select(r => new YummlyRecipeVm
-                {
-                    Title = r.recipeName,
-                    YummlyId = r.id,
-                    ImgUrl = r.imageUrlsBySize["90"]
-                });
-
-                resultVmList = dbRecipeVms.Concat(yummlyRecipeVms);
+                    var yummlyRecipes = _recipeService.GetYummlyRecipesByUsersFridgeItems(userId, count, ingridientIds);
+                    result = yummlyRecipes.Select(r => new YummlyRecipeVm
+                    {
+                        Title = r.recipeName,
+                        YummlyId = r.id,
+                        ImgUrl = r.imageUrlsBySize != null ? r.imageUrlsBySize["90"] : null
+                    });
+                    break;
+                default:
+                    throw new System.Exception("Unsupported recipe type");
             }
+                
 
-            return Ok(resultVmList);
+            return Ok(result);
         }
 
         [HttpGet]

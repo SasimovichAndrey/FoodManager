@@ -1,4 +1,12 @@
 ﻿app.controller('ShoppingListsCtrl', ['$http', '$scope', function ($http, $scope) {
+    $scope.addProductToFridge = function (product) {
+        $http.post("/api/fridgeitem/", { FoodProductId: product.Id }).then(function (response) {
+            $scope.removeFromCurrentShoppingList(product);
+
+        }, function (response) {
+        });
+    };
+
     $scope.productIsInCurrentShoppingList = function (foodProduct) {
         for (var i = 0; i < $scope.currentShoppingList.Products.length; i++) {
             if ($scope.currentShoppingList.Products[i].Id == foodProduct.Id) {
@@ -19,7 +27,15 @@
     $scope.getFoodProducts = function () {
         $http.get('/api/foodproduct/?amount=12')
             .then(function (response) {
-                $scope.foodProducts = response.data;
+                var prods = response.data;
+                $http.get('/api/currentshoppingList/')
+                    .then(function (response) {
+                        $scope.currentShoppingList = response.data;
+                        $scope.foodProducts = prods;
+                    },
+                    function (response) {
+
+                    });
             },
             function (response) {
 

@@ -28,7 +28,7 @@ textarea {
     padding-top:10px;
 }
 
-#foodProductPanel .food-product, #recipesPanel .recipe{
+#foodProductPanel .food-product, #recipesPanel .recipe, #fridge-panel .food-product, #curent-shopping-list-panel .food-product{
     margin-top: 10px;
     margin-bottom:10px;
 }
@@ -65,9 +65,8 @@ textarea {
     font-weight:bold;
 }
 
-.mypanel-title-container{
+.mypanel-container{
     padding-top:5px;
-    padding-bottom:5px;
 }
 
 .clear-both{
@@ -131,4 +130,23 @@ textarea {
     color:black;
     background:linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
     width: 400px;
+}
+
+.recipe-ingridient{
+    height:50px;
+}
+
+.ingridients-container{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.ingridients-header{
+    cursor:pointer;
+    padding:8px;
+}
+
+.item-button{
+    float: left;
+    margin-right:5px;
 }

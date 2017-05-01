@@ -7,6 +7,7 @@ using FoodManager.YummlyApi.Interface;
 using FoodManager.ServiceModels.Yummly;
 using FoodManager.DataModels.Models;
 using System.Text;
+using System;
 
 namespace FoodManager.BuisnessLogicService.Realization
 {
@@ -54,9 +55,13 @@ namespace FoodManager.BuisnessLogicService.Realization
             return recipe;
         }
 
-        public IEnumerable<YummlySearchRecipe> GetYummlyRecipesByUsersFridgeItems(string userId, int count)
+        public IEnumerable<YummlySearchRecipe> GetYummlyRecipesByUsersFridgeItems(string userId, int count, 
+            int[] ingridientIds)
         {
-            var userProductEngTitles = _dbContext.FridgeItems.Where(fi => fi.UserId == userId && fi.Product.EngTitle != null)
+            var userProductEngTitles = _dbContext.FridgeItems.Where(fi =>
+                    fi.UserId == userId 
+                    && fi.Product.EngTitle != null
+                    && ingridientIds.Contains(fi.Product.Id))
                 .Select(fi => fi.Product.EngTitle)
                 .ToList();
 
